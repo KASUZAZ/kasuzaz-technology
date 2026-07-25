@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+const WHATSAPP_BUSINESS_NUMBER = "601124819812";
+
 const services = [
   {
     no: "01",
@@ -477,7 +479,34 @@ export default function Home() {
           className="project-form scroll-reveal"
           onSubmit={(event) => {
             event.preventDefault();
+
+            const formData = new FormData(event.currentTarget);
+            const getField = (name: string) =>
+              String(formData.get(name) ?? "").trim();
+            const name = getField("name");
+            const company = getField("company") || "-";
+            const email = getField("email");
+            const service = getField("service");
+            const projectMessage = getField("message");
+            const whatsappMessage = [
+              "Hai KASUZAZ TECHNOLOGY,",
+              "",
+              "Saya ingin berbincang tentang projek berikut:",
+              "",
+              `*Nama:* ${name}`,
+              `*Syarikat / Organisasi:* ${company}`,
+              `*E-mel:* ${email}`,
+              `*Perkhidmatan:* ${service}`,
+              "",
+              "*Ringkasan projek:*",
+              projectMessage,
+              "",
+              "Dihantar melalui kasuzaz-technology.vercel.app",
+            ].join("\n");
+            const whatsappUrl = `https://wa.me/${WHATSAPP_BUSINESS_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+
             setSubmitted(true);
+            window.location.assign(whatsappUrl);
           }}
         >
           <div className="form-grid">
@@ -509,7 +538,7 @@ export default function Home() {
             Send project brief <ArrowIcon />
           </button>
           <p className={submitted ? "form-message is-visible" : "form-message"} role="status">
-            Thank you. The project brief is ready—connect this form to your official inbox before the public launch.
+            Opening WhatsApp Business with your project details ready to send.
           </p>
         </form>
       </section>
