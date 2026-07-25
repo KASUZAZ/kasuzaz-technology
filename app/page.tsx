@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const services = [
@@ -160,7 +161,14 @@ export default function Home() {
 
       <header className="nav-shell">
         <a className="brand" href="#top" onClick={closeMenu} aria-label="KASUZAZ Technology home">
-          <span className="brand-mark">K</span>
+          <Image
+            className="brand-logo"
+            src="/kasuzaz-technology-logo.png"
+            alt=""
+            width={400}
+            height={400}
+            priority
+          />
           <span>
             KASUZAZ
             <small>TECHNOLOGY</small>
@@ -414,7 +422,13 @@ export default function Home() {
 
       <section className="about-section" id="about">
         <div className="founder-panel scroll-reveal">
-          <div className="founder-monogram">AH</div>
+          <Image
+            className="founder-photo"
+            src="/muhammad-aizul-haziq-founder.png"
+            alt="Muhammad Aizul Haziq bin Ab Razak, Founder and Lead Technologist of KASUZAZ TECHNOLOGY"
+            fill
+            sizes="(max-width: 820px) 100vw, 45vw"
+          />
           <div className="founder-scan" />
           <div className="founder-meta">
             <span>Founder / Lead Technologist</span>
@@ -502,7 +516,13 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="footer-brand">
-          <span className="brand-mark">K</span>
+          <Image
+            className="brand-logo brand-logo-footer"
+            src="/kasuzaz-technology-logo.png"
+            alt=""
+            width={400}
+            height={400}
+          />
           <div>
             <strong>KASUZAZ TECHNOLOGY</strong>
             <p>Secure. Build. Transform.</p>

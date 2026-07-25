@@ -115,38 +115,17 @@ a {
   letter-spacing: 0.29em;
 }
 
-.brand-mark {
-  position: relative;
-  display: grid;
-  width: 35px;
-  height: 35px;
-  place-items: center;
-  border: 1px solid rgba(61, 227, 255, 0.42);
-  color: var(--cyan);
-  font-size: 0.9rem;
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
 }
 
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-color: var(--blue);
-}
-
-.brand-mark::before {
-  top: -3px;
-  left: -3px;
-  border-top: 1px solid;
-  border-left: 1px solid;
-}
-
-.brand-mark::after {
-  right: -3px;
-  bottom: -3px;
-  border-right: 1px solid;
-  border-bottom: 1px solid;
+.brand-logo-footer {
+  width: 46px;
+  height: 46px;
 }
 
 .nav-links {
@@ -1271,8 +1250,10 @@ a {
 .founder-panel::after {
   content: "";
   position: absolute;
+  z-index: 2;
   border: 1px solid rgba(61, 227, 255, 0.24);
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .founder-panel::before {
@@ -1285,19 +1266,15 @@ a {
   animation: orbit-two 14s linear infinite reverse;
 }
 
-.founder-monogram {
+.founder-photo {
   position: absolute;
-  z-index: 3;
+  z-index: 1;
   inset: 0;
-  display: grid;
-  place-items: center;
-  color: transparent;
-  background: linear-gradient(135deg, white, var(--cyan), var(--blue));
-  background-clip: text;
-  font-size: clamp(7rem, 15vw, 14rem);
-  font-weight: 760;
-  letter-spacing: -0.12em;
-  text-shadow: 0 0 80px rgba(61, 227, 255, 0.06);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(0.86) contrast(1.06) brightness(0.82);
 }
 
 .founder-scan {
@@ -1864,9 +1841,9 @@ a {
 }
 
 @media (max-width: 520px) {
-  .brand-mark {
-    width: 32px;
-    height: 32px;
+  .brand-logo {
+    width: 41px;
+    height: 41px;
   }
 
   .hero {
