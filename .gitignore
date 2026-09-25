@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/.next-local/
 /out/
 /.vinext/
 
@@ -42,3 +43,10 @@ next-env.d.ts
 /.sites-runtime/
 /outputs/
 /work/
+
+.vercel
+.env*
+/.private/
+/.agents/
+/skills-lock.json
+/.git-sync/

@@ -1,0 +1,9 @@
+.private/
+.next-local/
+.agents/
+.git-sync/
+.env*
+outputs/
+work/
+tests/
+skills-lock.json

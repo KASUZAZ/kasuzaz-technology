@@ -1,4 +1,16 @@
-# vinext-starter
+# KASUZAZ TECHNOLOGY
+
+Next.js website and private Client Studio, deployed to the existing Vercel project.
+
+- Website: https://kasuzaz-technology.vercel.app
+- Admin: https://kasuzaz-technology.vercel.app/admin
+- Setup, daily workflow, credentials and database notes: [CRM-OPERATIONS.md](CRM-OPERATIONS.md)
+- Local: `npm ci`, configure `.env.local`, then `npm run dev`.
+- Verify: `npm test`, `npm run lint`, `npm run build`.
+
+The legacy starter notes below describe the original Cloudflare/Sites scaffold. Production and the current npm dev/build/start commands use native Next.js on Vercel; Client Studio uses Neon Postgres.
+
+## Original starter reference
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and

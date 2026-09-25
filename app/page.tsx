@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { TechnologyExperience, ProjectQuestions } from "./technology-experience";
+import { NetworkMotion, MotionTerminal } from "./network-motion";
+import { ProjectRequestForm } from "./project-request-form";
 
-const WHATSAPP_BUSINESS_NUMBER = "601124819812";
+
 
 const services = [
   {
@@ -106,14 +109,15 @@ function MenuIcon({ open }: { open: boolean }) {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+
+  const [motionPaused, setMotionPaused] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(max > 0 ? window.scrollY / max : 0);
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
       document.documentElement.style.setProperty(
         "--scroll-y",
         `${window.scrollY}px`,
@@ -153,11 +157,13 @@ export default function Home() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <main className="site is-loaded">
+    <main className="site is-loaded" data-motion={motionPaused ? "paused" : "live"}>
+      <a className="skip-link" href="#solutions">Skip to content</a>
       <div className="cursor-glow" aria-hidden="true" />
       <div
         className="scroll-progress"
-        style={{ transform: `scaleX(${scrollProgress})` }}
+        ref={progressRef}
+        style={{ transform: "scaleX(0)" }}
         aria-hidden="true"
       />
 
@@ -179,6 +185,7 @@ export default function Home() {
 
         <nav className={menuOpen ? "nav-links is-open" : "nav-links"} aria-label="Main navigation">
           <a href="#solutions" onClick={closeMenu}>Solutions</a>
+          <a href="#technology" onClick={closeMenu}>Technology</a>
           <a href="#work" onClick={closeMenu}>Our Work</a>
           <a href="#about" onClick={closeMenu}>Company</a>
           <a href="#contact" onClick={closeMenu}>Contact</a>
@@ -200,6 +207,9 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top" ref={heroRef}>
+        <div className="live-atmosphere" aria-hidden="true"><i /><i /><i /></div>
+        <NetworkMotion paused={motionPaused} />
+        <div className="data-beams" aria-hidden="true"><i /><i /><i /><i /><i /></div>
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-noise" aria-hidden="true" />
 
@@ -226,11 +236,20 @@ export default function Home() {
               Explore our work
             </a>
           </div>
+          <div className="hero-signature reveal delay-4"><span>ENGINEERED WITH PURPOSE</span><span>SECURE. BUILD. TRANSFORM.</span></div>
+          <button className="motion-control" type="button" aria-pressed={motionPaused} onClick={() => setMotionPaused((value) => !value)}>
+            <span aria-hidden="true">{motionPaused ? "▶" : "Ⅱ"}</span>
+            {motionPaused ? "Resume animation" : "Pause animation"}
+          </button>
         </div>
 
         <div className="hero-scene reveal delay-3" aria-label="Futuristic connected technology environment">
+          <div className="radar-sweep" aria-hidden="true" />
+          <div className="tech-ring tech-ring-one" aria-hidden="true" />
+          <div className="tech-ring tech-ring-two" aria-hidden="true" />
           <div className="scene-halo" />
           <div className="scene-image">
+            <div className="scene-landscape" aria-hidden="true" />
             <div className="scan-line" />
           </div>
           <div className="orbit orbit-one" />
@@ -246,6 +265,8 @@ export default function Home() {
           <div className="data-node node-one" />
           <div className="data-node node-two" />
           <div className="data-node node-three" />
+          <div className="scene-coordinate">KZ / DIGITAL ENGINEERING<br /><span>EXPERIENCE × INTELLIGENCE × INFRASTRUCTURE</span></div>
+          <MotionTerminal />
         </div>
 
         <div className="hero-meta reveal delay-4">
@@ -281,7 +302,8 @@ export default function Home() {
 
         <div className="service-preview-grid">
           {services.slice(0, 3).map((service) => (
-            <article className="service-card" key={service.no}>
+            <article className="service-card scroll-reveal" key={service.no}>
+              <div className={`service-motion service-motion-${service.no}`} aria-hidden="true"><i /><i /><i /><span>{["</>", "{ }", "✳"][Number(service.no) - 1]}</span></div>
               <div className="service-top">
                 <span>{service.no}</span>
                 <span className="card-arrow"><ArrowIcon /></span>
@@ -333,6 +355,8 @@ export default function Home() {
           <div><strong>MY → ∞</strong><span>Malaysia based, remote worldwide</span></div>
         </div>
       </section>
+
+      <TechnologyExperience />
 
       <section className="section work-section" id="work">
         <div className="section-heading scroll-reveal">
@@ -424,17 +448,10 @@ export default function Home() {
 
       <section className="about-section" id="about">
         <div className="founder-panel scroll-reveal">
-          <Image
-            className="founder-photo"
-            src="/muhammad-aizul-haziq-founder.png"
-            alt="Muhammad Aizul Haziq bin Ab Razak, Founder and Lead Technologist of KASUZAZ TECHNOLOGY"
-            fill
-            sizes="(max-width: 820px) 100vw, 45vw"
-          />
-          <div className="founder-scan" />
+          <div className="studio-origin"><span>LOCAL ROOTS. GLOBAL MINDSET.</span><div className="studio-monogram" aria-hidden="true">K<span>↗</span></div><p>Independent thinking.<br />Connected possibilities.</p><small>MELAKA, MALAYSIA → EVERYWHERE</small></div>
           <div className="founder-meta">
             <span>Founder / Lead Technologist</span>
-            <strong>Muhammad Aizul Haziq<br />bin Ab Razak</strong>
+            <strong>MUHAMMAD AIZUL HAZIQ</strong>
           </div>
         </div>
         <div className="about-copy scroll-reveal">
@@ -459,6 +476,8 @@ export default function Home() {
         </div>
       </section>
 
+      <ProjectQuestions />
+
       <section className="contact-section" id="contact">
         <div className="contact-glow" aria-hidden="true" />
         <div className="contact-copy scroll-reveal">
@@ -469,78 +488,14 @@ export default function Home() {
             identify the right solution and the next practical step.
           </p>
           <div className="contact-facts">
+            <div><span>Phone</span><strong><a href="tel:+601124819812">+60 11-2481 9812</a></strong></div>
             <div><span>Location</span><strong>Melaka, Malaysia</strong></div>
             <div><span>Availability</span><strong>Remote · Worldwide</strong></div>
             <div><span>Focus</span><strong>Secure digital solutions</strong></div>
           </div>
         </div>
 
-        <form
-          className="project-form scroll-reveal"
-          onSubmit={(event) => {
-            event.preventDefault();
-
-            const formData = new FormData(event.currentTarget);
-            const getField = (name: string) =>
-              String(formData.get(name) ?? "").trim();
-            const name = getField("name");
-            const company = getField("company") || "-";
-            const email = getField("email");
-            const service = getField("service");
-            const projectMessage = getField("message");
-            const whatsappMessage = [
-              "Hai KASUZAZ TECHNOLOGY,",
-              "",
-              "Saya ingin berbincang tentang projek berikut:",
-              "",
-              `*Nama:* ${name}`,
-              `*Syarikat / Organisasi:* ${company}`,
-              `*E-mel:* ${email}`,
-              `*Perkhidmatan:* ${service}`,
-              "",
-              "*Ringkasan projek:*",
-              projectMessage,
-              "",
-              "Dihantar melalui kasuzaz-technology.vercel.app",
-            ].join("\n");
-            const whatsappUrl = `https://wa.me/${WHATSAPP_BUSINESS_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
-
-            setSubmitted(true);
-            window.location.assign(whatsappUrl);
-          }}
-        >
-          <div className="form-grid">
-            <label>
-              <span>Your name</span>
-              <input name="name" type="text" placeholder="Full name" required />
-            </label>
-            <label>
-              <span>Company</span>
-              <input name="company" type="text" placeholder="Company or organisation" />
-            </label>
-            <label>
-              <span>Email</span>
-              <input name="email" type="email" placeholder="you@company.com" required />
-            </label>
-            <label>
-              <span>Required service</span>
-              <select name="service" defaultValue="" required>
-                <option value="" disabled>Select a solution</option>
-                {services.map((service) => <option key={service.no}>{service.title}</option>)}
-              </select>
-            </label>
-          </div>
-          <label>
-            <span>Tell us about the project</span>
-            <textarea name="message" rows={5} placeholder="Goals, current challenge, timeline and estimated budget." required />
-          </label>
-          <button className="button button-primary form-submit" type="submit">
-            Send project brief <ArrowIcon />
-          </button>
-          <p className={submitted ? "form-message is-visible" : "form-message"} role="status">
-            Opening WhatsApp Business with your project details ready to send.
-          </p>
-        </form>
+        <ProjectRequestForm />
       </section>
 
       <footer className="site-footer">
@@ -564,7 +519,7 @@ export default function Home() {
           <a href="#contact">Contact</a>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 KASUZAZ TECHNOLOGY</span>
+          <span>© 2026 KASUZAZ TECHNOLOGY · <a href="/privacy">Privacy</a> · <a href="/admin">Admin</a></span>
           <span>Melaka, Malaysia · Remote services worldwide</span>
         </div>
       </footer>
