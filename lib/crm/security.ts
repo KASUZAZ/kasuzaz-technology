@@ -9,7 +9,7 @@ export class HttpError extends Error {
 }
 export const cookieName = "kz_admin_session";
 export const digest = (value: string) => createHash("sha256").update(value).digest("hex");
-export const credentialVersion = () => digest(process.env.ADMIN_PASSWORD_HASH || "disabled");
+export const credentialVersion = () => digest(`${process.env.ADMIN_USERNAME || "disabled"}:${process.env.ADMIN_PASSWORD_HASH || "disabled"}`);
 
 export function sameOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
@@ -50,6 +50,14 @@ export async function limit(request: NextRequest, scope: string, maximum: number
   if (row.count > maximum) throw new HttpError(429, "Too many attempts. Please try again later.");
 }
 
+export function verifyCredentials(username: string, password: string) {
+  const expectedUsername = process.env.ADMIN_USERNAME;
+  if (!expectedUsername) throw new HttpError(503, "Admin access is not configured.");
+  const passwordValid = verifyPassword(password);
+  const usernameValid = timingSafeEqual(Buffer.from(digest(username)), Buffer.from(digest(expectedUsername)));
+  return passwordValid && usernameValid;
+}
+
 export function verifyPassword(password: string) {
   const stored = process.env.ADMIN_PASSWORD_HASH;
   if (!stored) throw new HttpError(503, "Admin access is not configured.");
@@ -60,7 +68,7 @@ export function verifyPassword(password: string) {
 }
 
 export async function authenticated() {
-  if (!process.env.ADMIN_PASSWORD_HASH) return false;
+  if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD_HASH) return false;
   const token = (await cookies()).get(cookieName)?.value;
   if (!token || !/^[a-f0-9]{64}$/.test(token)) return false;
   const db = sql();

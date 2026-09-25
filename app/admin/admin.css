@@ -19,6 +19,7 @@
 .crm-login-card { width:100%; max-width:430px; padding:36px; background:#101b2b; border:1px solid #2a415c; margin-top:40px; border-radius:12px; box-shadow:0 30px 70px #0004; }
 .crm-login-card h1 { font-size:40px; letter-spacing:-.05em; font-weight:500; margin:14px 0; }
 .crm-login-card > p:not(.crm-eyebrow) { font-size:13px; line-height:1.8; color:var(--crm-muted); margin-bottom:30px; }
+.crm-login-card label + label { margin-top:20px; }
 .crm-login-card .crm-primary { width:100%; margin-top:24px; }
 .crm-login-note { color:#64778f; font-size:11px; margin-top:28px; }
 .crm-dashboard { display:grid; grid-template-columns:235px minmax(0,1fr); min-height:100vh; }

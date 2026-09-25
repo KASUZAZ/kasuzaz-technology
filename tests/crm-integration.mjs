@@ -8,6 +8,7 @@ if (!['localhost', '127.0.0.1'].includes(new URL(base).hostname)) throw new Erro
 const sql = neon(process.env.DATABASE_URL);
 const phone = '+12025550123'; // Reserved North American fictional number; no messages are sent.
 const password = readFileSync('.private/admin-access.txt', 'utf8').match(/^Password: (.+)$/m)[1];
+const username = process.env.ADMIN_USERNAME;
 const keys = [randomUUID(), randomUUID(), randomUUID()];
 const tag = `CRM TEST ${randomUUID()}`;
 let cookie = '';
@@ -40,8 +41,10 @@ try {
   const replies = await Promise.all([call('/api/requests', 'POST', concurrent), call('/api/requests', 'POST', concurrent)]);
   for (const reply of replies) assert.ok(reply.response.ok, JSON.stringify(reply.data));
   assert.equal(replies[0].data.order, replies[1].data.order);
-  assert.equal((await call('/api/admin/session', 'POST', { password: 'incorrect' })).response.status, 401);
-  const login = await call('/api/admin/session', 'POST', { password });
+  assert.equal((await call('/api/admin/session', 'POST', { username, password: 'incorrect' })).response.status, 401);
+  assert.equal((await call('/api/admin/session', 'POST', { username: 'incorrect', password })).response.status, 401);
+  assert.equal((await call('/api/admin/session', 'POST', { password })).response.status, 401);
+  const login = await call('/api/admin/session', 'POST', { username, password });
   assert.equal(login.response.status, 200, JSON.stringify(login.data));
   const setCookie = login.response.headers.get('set-cookie');
   assert.match(setCookie, /HttpOnly/i); assert.match(setCookie, /SameSite=strict/i);
