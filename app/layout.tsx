@@ -20,8 +20,9 @@ export const metadata: Metadata = {
     "codex-preview": "development",
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: { url: "/kasuzaz-logo.png", type: "image/png", sizes: "400x400" },
+    shortcut: "/kasuzaz-logo.png",
+    apple: "/kasuzaz-logo.png",
   },
 };
 
