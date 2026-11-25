@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { TechnologyExperience, ProjectQuestions } from "./technology-experience";
-import { NetworkMotion, MotionTerminal } from "./network-motion";
 import { ProjectRequestForm } from "./project-request-form";
 
 
@@ -167,114 +166,47 @@ export default function Home() {
         aria-hidden="true"
       />
 
-      <header className="nav-shell">
+      <header className="nav-shell room-nav">
         <a className="brand" href="#top" onClick={closeMenu} aria-label="KASUZAZ Technology home">
-          <Image
-            className="brand-logo"
-            src="/kasuzaz-technology-logo.png"
-            alt=""
-            width={400}
-            height={400}
-            priority
-          />
-          <span>
-            KASUZAZ
-            <small>TECHNOLOGY</small>
-          </span>
+          <Image className="brand-logo" src="/kasuzaz-technology-logo.png" alt="" width={400} height={400} priority />
+          <span>KASUZAZ<small>TECHNOLOGY · MELAKA</small></span>
         </a>
-
-        <nav className={menuOpen ? "nav-links is-open" : "nav-links"} aria-label="Main navigation">
-          <a href="#solutions" onClick={closeMenu}>Solutions</a>
-          <a href="#technology" onClick={closeMenu}>Technology</a>
-          <a href="#work" onClick={closeMenu}>Our Work</a>
-          <a href="#about" onClick={closeMenu}>Company</a>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
+        <nav className={`nav-links room-links ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
+          <a href="#work" onClick={closeMenu}><span>01</span> Projects</a>
+          <a href="#technology" onClick={closeMenu}><span>02</span> Experience</a>
+          <a href="#about" onClick={closeMenu}><span>03</span> About</a>
+          <a href="#contact" onClick={closeMenu}><span>04</span> Contact</a>
         </nav>
-
-        <a className="nav-cta" href="#contact">
-          Start a project <ArrowIcon />
-        </a>
-
-        <button
-          className="menu-button"
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((value) => !value)}
-        >
-          <MenuIcon open={menuOpen} />
-        </button>
+        <a className="nav-cta" href="https://wa.me/601124819812" target="_blank" rel="noreferrer">Let&apos;s talk <ArrowIcon /></a>
+        <button className="menu-button" type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}><MenuIcon open={menuOpen} /></button>
       </header>
 
-      <section className="hero" id="top" ref={heroRef}>
-        <div className="live-atmosphere" aria-hidden="true"><i /><i /><i /></div>
-        <NetworkMotion paused={motionPaused} />
-        <div className="data-beams" aria-hidden="true"><i /><i /><i /><i /><i /></div>
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-noise" aria-hidden="true" />
-
-        <div className="hero-copy">
-          <div className="eyebrow reveal delay-1">
-            <span className="status-dot" />
-            Malaysia based · Available worldwide
+      <section className="hero room-hero" id="top" ref={heroRef}>
+        <div className="room-atmosphere" aria-hidden="true" />
+        <div className="room-grid" aria-hidden="true" />
+        <div className="room-titlebar"><span><i /> KASUZAZ DIGITAL STUDIO</span><span>MELAKA, MY <b>·</b> AVAILABLE WORLDWIDE</span></div>
+        <div className="room-scene" aria-label="A 3D-inspired digital studio with a Kasuzaz workstation">
+          <div className="room-back-wall">
+            <div className="room-window"><div className="window-glow" /><div className="cityline cityline-back" /><div className="cityline cityline-front" /><i /><i /></div>
+            <div className="room-shelf"><span>BUILD / SECURE / GROW</span><div className="shelf-books"><i /><i /><i /><i /></div><b>K</b></div>
+            <div className="room-poster"><span>KASUZAZ</span><b>Technology<br />for what&apos;s next.</b><i>EST. MELAKA · 2021</i></div>
+            <div className="room-plant"><i /><i /><i /><b /></div>
           </div>
-          <h1 className="reveal delay-2">
-            Secure digital
-            <span>systems for a</span>
-            <em>world in motion.</em>
-          </h1>
-          <p className="hero-lead reveal delay-3">
-            We design and build websites, custom systems, digital experiences,
-            secure infrastructure and practical AI solutions that move
-            organisations forward.
-          </p>
-          <div className="hero-actions reveal delay-4">
-            <a className="button button-primary" href="#contact">
-              Discuss your project <ArrowIcon />
-            </a>
-            <a className="button button-ghost" href="#work">
-              Explore our work
-            </a>
-          </div>
-          <div className="hero-signature reveal delay-4"><span>ENGINEERED WITH PURPOSE</span><span>SECURE. BUILD. TRANSFORM.</span></div>
-          <button className="motion-control" type="button" aria-pressed={motionPaused} onClick={() => setMotionPaused((value) => !value)}>
-            <span aria-hidden="true">{motionPaused ? "▶" : "Ⅱ"}</span>
-            {motionPaused ? "Resume animation" : "Pause animation"}
-          </button>
+          <div className="room-floor"><div className="floor-light" /></div>
+          <div className="studio-desk"><div className="desk-top"><div className="desk-mat" /><div className="desk-lamp"><i /><b /></div><div className="desk-mug"><i /></div></div><div className="desk-front" /></div>
+          <div className="studio-monitor"><div className="monitor-frame"><div className="monitor-screen"><div className="screen-bar"><i /><i /><i /><span>kasuzaz.my / studio</span></div><div className="screen-content"><Image src="/kasuzaz-technology-logo.png" alt="KASUZAZ Technology" width={110} height={110} /><span className="screen-overline">SECURE DIGITAL SYSTEMS</span><b>Make ideas<br /><em>work better.</em></b><small>WEB · SYSTEMS · SECURITY · AI</small></div><div className="screen-status"><span><i /> ALL SYSTEMS READY</span><span>MY / 02.2026</span></div></div></div><div className="monitor-neck" /><div className="monitor-base" /></div>
+          <div className="desk-keyboard"><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /></div>
+          <div className="desk-tablet"><div><span>PROJECT / 024</span><b>Ideas into<br />real systems.</b><i>01 — 05</i></div></div>
+          <div className="room-label label-window">THE STUDIO <i /></div><div className="room-label label-work">BUILT WITH INTENT <i /></div>
         </div>
-
-        <div className="hero-scene reveal delay-3" aria-label="Futuristic connected technology environment">
-          <div className="radar-sweep" aria-hidden="true" />
-          <div className="tech-ring tech-ring-one" aria-hidden="true" />
-          <div className="tech-ring tech-ring-two" aria-hidden="true" />
-          <div className="scene-halo" />
-          <div className="scene-image">
-            <div className="scene-landscape" aria-hidden="true" />
-            <div className="scan-line" />
-          </div>
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="floating-chip chip-security">
-            <span>SEC</span>
-            Security first
-          </div>
-          <div className="floating-chip chip-uptime">
-            <span>∞</span>
-            Built to scale
-          </div>
-          <div className="data-node node-one" />
-          <div className="data-node node-two" />
-          <div className="data-node node-three" />
-          <div className="scene-coordinate">KZ / DIGITAL ENGINEERING<br /><span>EXPERIENCE × INTELLIGENCE × INFRASTRUCTURE</span></div>
-          <MotionTerminal />
+        <div className="room-intro">
+          <p className="eyebrow"><span className="status-dot" /> YOUR DIGITAL BUILD PARTNER</p>
+          <h1>Ideas deserve<br /><em>a place to grow.</em></h1>
+          <p className="hero-lead">We design and build secure websites, systems and digital experiences for the people shaping what comes next.</p>
+          <div className="hero-actions"><a className="button button-primary" href="#work">Explore selected work <ArrowIcon /></a><a className="button button-ghost" href="#contact">Start a conversation</a></div>
         </div>
-
-        <div className="hero-meta reveal delay-4">
-          <span>Scroll to explore</span>
-          <i />
-        </div>
+        <div className="room-caption"><span>01 / 04</span><i /><span>SELECT A SECTION TO EXPLORE</span><span>SCROLL TO DISCOVER ↓</span></div>
       </section>
-
       <section className="signal-strip" aria-label="Core capabilities">
         <span>WEB DEVELOPMENT</span>
         <i />
