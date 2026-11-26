@@ -189,6 +189,80 @@ function makeMonitorTexture(THREE: typeof import("three")) {
   return texture;
 }
 
+function makePhoneLockscreenTexture(THREE: typeof import("three")) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 720;
+  canvas.height = 1280;
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+
+  const background = context.createLinearGradient(0, 0, 720, 1280);
+  background.addColorStop(0, "#171727");
+  background.addColorStop(0.5, "#29233c");
+  background.addColorStop(1, "#111925");
+  context.fillStyle = background;
+  context.fillRect(0, 0, 720, 1280);
+
+  const glow = context.createRadialGradient(415, 565, 24, 390, 580, 520);
+  glow.addColorStop(0, "rgba(244, 132, 174, .9)");
+  glow.addColorStop(0.42, "rgba(167, 111, 172, .48)");
+  glow.addColorStop(1, "rgba(31, 34, 56, 0)");
+  context.fillStyle = glow;
+  context.fillRect(0, 110, 720, 980);
+
+  context.save();
+  context.globalAlpha = 0.3;
+  context.fillStyle = "#f8b9cf";
+  context.beginPath();
+  context.ellipse(370, 705, 250, 485, -0.48, 0, Math.PI * 2);
+  context.fill();
+  context.globalAlpha = 0.42;
+  context.fillStyle = "#8f8bc7";
+  context.beginPath();
+  context.ellipse(445, 735, 188, 420, 0.55, 0, Math.PI * 2);
+  context.fill();
+  context.restore();
+
+  context.fillStyle = "rgba(255,255,255,.88)";
+  context.font = "500 25px Arial";
+  context.textAlign = "left";
+  context.fillText("KASUZAZ", 48, 56);
+  context.textAlign = "right";
+  context.fillText("●  ◔  ▰", 672, 56);
+
+  const now = new Date();
+  const dateText = new Intl.DateTimeFormat("en-MY", { timeZone: "Asia/Kuala_Lumpur", weekday: "long", day: "numeric", month: "long" }).format(now);
+  const timeText = new Intl.DateTimeFormat("en-MY", { timeZone: "Asia/Kuala_Lumpur", hour: "2-digit", minute: "2-digit", hour12: false }).format(now);
+  context.textAlign = "center";
+  context.fillStyle = "rgba(255,255,255,.88)";
+  context.font = "500 34px Arial";
+  context.fillText(dateText, 360, 366);
+  context.fillStyle = "#fff8fb";
+  context.font = "300 176px Arial";
+  context.fillText(timeText, 360, 535);
+
+  context.fillStyle = "rgba(255,255,255,.78)";
+  context.font = "500 25px Arial";
+  context.fillText("SECURE. BUILD. TRANSFORM.", 360, 1064);
+  context.fillStyle = "rgba(20,18,35,.35)";
+  context.beginPath();
+  context.roundRect(100, 1134, 150, 72, 36);
+  context.roundRect(470, 1134, 150, 72, 36);
+  context.fill();
+  context.fillStyle = "rgba(255,255,255,.92)";
+  context.font = "42px Arial";
+  context.fillText("◉", 175, 1182);
+  context.fillText("⌕", 545, 1182);
+  context.fillStyle = "rgba(255,255,255,.92)";
+  context.beginPath();
+  context.roundRect(250, 1243, 220, 9, 5);
+  context.fill();
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 export function ImmersivePortfolio() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const motionPausedRef = useRef(false);
@@ -387,7 +461,11 @@ export function ImmersivePortfolio() {
         phone.rotation.y = -0.22;
         desk.add(phone);
         box(phone, [0.88, 1.48, 0.11], [0, 0.73, 0], dark);
-        const phoneScreen = new THREE.Mesh(new THREE.PlaneGeometry(0.72, 1.27), mat("#241d2d", 0.24, 0.08, "#f58fb1", 0.4));
+        const phoneLockscreen = makePhoneLockscreenTexture(THREE);
+        const phoneScreen = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.72, 1.27),
+          new THREE.MeshBasicMaterial({ map: phoneLockscreen ?? undefined, color: phoneLockscreen ? "#ffffff" : "#241d2d", toneMapped: false }),
+        );
         phoneScreen.position.set(0, 0.75, 0.064);
         phoneScreen.userData.section = "contact";
         phoneScreen.userData.hotspot = true;
@@ -727,7 +805,7 @@ export function ImmersivePortfolio() {
             {activeSection === "contact" && (
               <div className="terminal-content contact-content">
                 <header className="section-intro"><p>05 / LET&apos;S CONNECT</p><h1 id="section-heading">Contact</h1><span>Have a project in mind? Start a conversation.</span></header>
-                <div className="contact-layout"><div className="contact-phone"><div className="phone-speaker" /><div className="phone-time">{clock}<small>MYT · MELAKA</small></div><Image src="/kasuzaz-technology-logo.png" alt="KASUZAZ Technology" width={70} height={70} /><strong>KASUZAZ<br />TECHNOLOGY</strong><span>Secure. Build. Transform.</span><a className="phone-message" href="https://wa.me/601124819812" target="_blank" rel="noreferrer">Message on WhatsApp <b>↗</b></a></div><div className="contact-details"><p>DIRECT CONTACT</p><a className="contact-link" href="mailto:aizul@kasuzaz.my"><span>EMAIL</span><strong>aizul@kasuzaz.my</strong><i>↗</i></a><a className="contact-link" href="tel:+601124819812"><span>PHONE</span><strong>+60 11-2481 9812</strong><i>↗</i></a><a className="contact-link" href="https://wa.me/601124819812" target="_blank" rel="noreferrer"><span>WHATSAPP</span><strong>Start a project chat</strong><i>↗</i></a><div className="contact-location"><i /> MELAKA, MALAYSIA · REMOTE WORLDWIDE</div><div className="social-links"><a href="https://github.com/KASUZAZ" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/kasuzaz_" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="https://www.tiktok.com/@kasuzaztech" target="_blank" rel="noreferrer">TIKTOK ↗</a></div></div></div>
+                <div className="contact-layout"><div className="contact-phone"><div className="phone-speaker" /><div className="phone-time">{clock}<small>MYT · MELAKA</small></div><Image src="/kasuzaz-technology-logo.png" alt="KASUZAZ Technology" width={70} height={70} /><strong>KASUZAZ<br />TECHNOLOGY</strong><span>Secure. Build. Transform.</span><a className="phone-message" href="https://wa.me/601124819812" target="_blank" rel="noreferrer">Message on WhatsApp <b>↗</b></a></div><div className="contact-details"><p>DIRECT CONTACT</p><a className="contact-link" href="mailto:aizul@kasuzaz.my"><span>EMAIL</span><strong>aizul@kasuzaz.my</strong><i>↗</i></a><a className="contact-link" href="tel:+601124819812"><span>PHONE</span><strong>+60 11-2481 9812</strong><i>↗</i></a><a className="contact-link" href="https://wa.me/601124819812" target="_blank" rel="noreferrer"><span>WHATSAPP</span><strong>Start a project chat</strong><i>↗</i></a><a className="contact-link" href="https://linktr.ee/kasuzaztechnology" target="_blank" rel="noreferrer"><span>LINKTREE</span><strong>More ways to connect</strong><i>↗</i></a><div className="contact-location"><i /> MELAKA, MALAYSIA · REMOTE WORLDWIDE</div><div className="social-links"><a href="https://github.com/KASUZAZ" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/kasuzaz_" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="https://www.tiktok.com/@kasuzaztech" target="_blank" rel="noreferrer">TIKTOK ↗</a></div></div></div>
               </div>
             )}
           </section>
