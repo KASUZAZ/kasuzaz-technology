@@ -49,6 +49,7 @@ const projects = [
     description: "A structured portal bringing programmes, admissions and digital services together for the MiCoST community.",
     mark: "MS",
     tone: "mint",
+    logo: "/projects/micostskills-logo.png",
     image: "/projects/micostskills.png",
     imageFit: "cover" as const,
     url: "https://micostskills.kasuzaz.my/",
@@ -62,6 +63,7 @@ const projects = [
     description: "An AI-supported learning concept for security awareness, guided practice and safer digital habits.",
     mark: "CG",
     tone: "rose",
+    logo: "/projects/cyberguard-ai-logo.png",
     image: "/projects/cyberguard-ai.png",
     imageFit: "contain" as const,
     url: "https://cyberguard-ai.kasuzaz.my/",
@@ -75,6 +77,7 @@ const projects = [
     description: "A public website for the Fox Clan community, featuring its identity and online presence.",
     mark: "FOX",
     tone: "rose",
+    logo: "/projects/fox-clan-logo.png",
     image: "/projects/fox-clan.png",
     imageFit: "cover" as const,
     url: "https://fox-clan.kasuzaz.my/",
@@ -88,6 +91,7 @@ const projects = [
     description: "A community focused website connecting people with Merlimau and local information.",
     mark: "MK",
     tone: "mint",
+    logo: "/projects/merlimau-kita-logo.png",
     image: "/projects/merlimau-kita.png",
     imageFit: "contain" as const,
     url: "https://merlimau-kita.kasuzaz.my/",
@@ -101,6 +105,7 @@ const projects = [
     description: "A cybersecurity awareness site highlighting digital threats and safer online habits.",
     mark: "EH",
     tone: "blue",
+    logo: "/projects/exposure-hacker-logo.png",
     image: "/projects/exposure-hacker.png",
     imageFit: "cover" as const,
     url: "https://exposure-hacker.kasuzaz.my/",
@@ -669,7 +674,7 @@ export function ImmersivePortfolio() {
                 <div className="project-browser">
                   <div className="project-list" role="listbox" aria-label="Selected Kasuzaz projects">
                     {filteredProjects.map((project) => <button key={project.id} type="button" className={`project-row ${activeProject === project.id ? "is-selected" : ""}`} aria-selected={activeProject === project.id} role="option" onClick={() => setActiveProject(project.id)}>
-                      <span className={`project-mark mark-${project.tone}`}>{project.mark}</span><span className="project-row-copy"><strong>{project.name}</strong><small>{project.type}</small></span><span className="project-row-arrow">↗</span>
+                      <span className={`project-mark mark-${project.tone}`}><Image className="project-mark-image" src={project.logo} alt="" fill sizes="(max-width: 700px) 31px, 42px" /></span><span className="project-row-copy"><strong>{project.name}</strong><small>{project.type}</small></span><span className="project-row-arrow">↗</span>
                     </button>)}
                   </div>
                   <article className="project-detail" key={selectedProject.id}>
