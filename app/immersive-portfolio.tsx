@@ -466,11 +466,12 @@ export function ImmersivePortfolio() {
         scene.add(dust);
 
         // Floating markers double as mouse/touch hotspots and as visual invitations.
-        const markerSpecs: { id: SectionId; pos: [number, number, number] }[] = [
+        const markerSpecs: { id: SectionId; pos: [number, number, number]; label?: string }[] = [
           { id: "projects", pos: [-2.7, 3.05, -0.65] },
           { id: "experience", pos: [5.6, 4.55, -4.95] },
           { id: "about", pos: [-6.0, 3.25, -4.9] },
           { id: "certificates", pos: [7.7, 3.0, -4.8] },
+          { id: "certificates", label: "SSM", pos: [-5.1, 2.15, -4.9] },
           { id: "contact", pos: [3.7, 3.05, -0.2] },
         ];
         const openByMarker = (id: SectionId) => {
@@ -488,10 +489,11 @@ export function ImmersivePortfolio() {
           core.userData.section = marker.id;
           core.userData.hotspot = true;
           group.add(core);
-          const texture = makeLabelTexture(THREE, marker.id[0].toUpperCase() + marker.id.slice(1), "open section");
+          const label = marker.label ?? marker.id[0].toUpperCase() + marker.id.slice(1);
+          const texture = makeLabelTexture(THREE, label, "open section");
           if (texture) {
             const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }));
-            sprite.scale.set(marker.id === "certificates" ? 1.55 : 1.9, marker.id === "certificates" ? 0.49 : 0.6, 1);
+            sprite.scale.set(label === "Certificates" ? 1.55 : label === "SSM" ? 1.3 : 1.9, label === "Certificates" ? 0.49 : 0.6, 1);
             sprite.position.y = 0.47;
             sprite.userData.section = marker.id;
             sprite.userData.hotspot = true;
