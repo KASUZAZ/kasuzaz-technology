@@ -3,14 +3,39 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-type SectionId = "projects" | "experience" | "about" | "contact";
+type SectionId = "projects" | "experience" | "about" | "certificates" | "contact";
 type ProjectFilter = "all" | "platforms" | "security" | "systems";
+type WallFrame = { position: [number, number]; size: [number, number] };
+type CertificateItem = { id: string; title: string; issuer: string; file: string; preview: string; featured?: boolean; frame?: WallFrame };
 
 const sections: { id: SectionId; label: string }[] = [
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "about", label: "About" },
+  { id: "certificates", label: "Certificates" },
   { id: "contact", label: "Contact" },
+];
+
+const certificates: CertificateItem[] = [
+  { id: "introduction-to-cybersecurity", title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", file: "/certificates/files/introduction-to-cybersecurity.pdf", preview: "/certificates/previews/introduction-to-cybersecurity.jpg", featured: true, frame: { position: [5.15, 4.45], size: [1.54, 1.18] } },
+  { id: "cybersafe-untuk-rakyat", title: "CyberSAFE untuk Rakyat", issuer: "Ministry of Digital", file: "/certificates/files/cybersafe-untuk-rakyat.pdf", preview: "/certificates/previews/cybersafe-untuk-rakyat.jpg", featured: true, frame: { position: [6.84, 4.45], size: [1.54, 1.18] } },
+  { id: "anugerah-perak-melaka-2026", title: "Anugerah Perak", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/anugerah-perak-melaka-2026.jpg", preview: "/certificates/previews/anugerah-perak-melaka-2026.jpg", featured: true, frame: { position: [8.35, 4.45], size: [1.14, 1.66] } },
+  { id: "ai-fluency", title: "AI Fluency", issuer: "Course certificate", file: "/certificates/files/ai-fluency.pdf", preview: "/certificates/previews/ai-fluency.jpg" },
+  { id: "ai-safety", title: "AI Safety", issuer: "Course certificate", file: "/certificates/files/ai-safety.pdf", preview: "/certificates/previews/ai-safety.jpg" },
+  { id: "blockchain", title: "Blockchain", issuer: "Course certificate", file: "/certificates/files/blockchain.pdf", preview: "/certificates/previews/blockchain.jpg" },
+  { id: "python-and-html", title: "Python and HTML", issuer: "SoloLearn", file: "/certificates/files/python-and-html.pdf", preview: "/certificates/previews/python-and-html.jpg" },
+  { id: "cloud-untuk-rakyat", title: "Cloud untuk Rakyat", issuer: "Course certificate", file: "/certificates/files/cloud-untuk-rakyat.pdf", preview: "/certificates/previews/cloud-untuk-rakyat.jpg" },
+  { id: "computer-hardware-basics", title: "Computer Hardware Basics", issuer: "Course certificate", file: "/certificates/files/computer-hardware-basics.pdf", preview: "/certificates/previews/computer-hardware-basics.jpg" },
+  { id: "creating-compelling-reports", title: "Creating Compelling Reports", issuer: "Course certificate", file: "/certificates/files/creating-compelling-reports.pdf", preview: "/certificates/previews/creating-compelling-reports.jpg" },
+  { id: "generative-ai", title: "Generative AI", issuer: "Course certificate", file: "/certificates/files/generative-ai.pdf", preview: "/certificates/previews/generative-ai.jpg" },
+  { id: "cisco-packet-tracer", title: "Getting Started with Cisco Packet Tracer", issuer: "Course certificate", file: "/certificates/files/cisco-packet-tracer.pdf", preview: "/certificates/previews/cisco-packet-tracer.jpg" },
+  { id: "penghargaan-karnival-tvet-2026", title: "Sijil Penghargaan", issuer: "Karnival TVET Negeri Melaka 2026", file: "/certificates/files/penghargaan-karnival-tvet-2026.jpg", preview: "/certificates/previews/penghargaan-karnival-tvet-2026.jpg" },
+  { id: "introduction-to-iot", title: "Introduction to IoT", issuer: "Course certificate", file: "/certificates/files/introduction-to-iot.pdf", preview: "/certificates/previews/introduction-to-iot.jpg" },
+  { id: "introduction-to-modern-ai", title: "Introduction to Modern AI", issuer: "Course certificate", file: "/certificates/files/introduction-to-modern-ai.pdf", preview: "/certificates/previews/introduction-to-modern-ai.jpg" },
+  { id: "kasuzaz-cyber-security", title: "Cyber Security", issuer: "KASUZAZ", file: "/certificates/files/kasuzaz-cyber-security.pdf", preview: "/certificates/previews/kasuzaz-cyber-security.jpg" },
+  { id: "operating-systems-basics", title: "Operating Systems Basics", issuer: "Course certificate", file: "/certificates/files/operating-systems-basics.pdf", preview: "/certificates/previews/operating-systems-basics.jpg" },
+  { id: "sijil-hikm26", title: "Sijil Penghargaan HIKM26", issuer: "Karnival TVET Negeri Melaka 2026", file: "/certificates/files/sijil-hikm26.pdf", preview: "/certificates/previews/sijil-hikm26.jpg" },
+  { id: "sijil-kehadiran-inovasi-2026", title: "Sijil Kehadiran", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/sijil-kehadiran-inovasi-2026.png", preview: "/certificates/previews/sijil-kehadiran-inovasi-2026.png" },
 ];
 
 const projects = [
@@ -328,7 +353,7 @@ export function ImmersivePortfolio() {
         activeHotspots.push(phoneScreen);
         box(phone, [1.2, 0.12, 1.45], [0, 0.06, 0.18], brass);
 
-        // A small profile portrait plaque and a certificate badge on the side wall.
+        // A profile portrait and three featured certificate frames on the side wall.
         const portrait = new THREE.Group();
         portrait.position.set(-6.75, 4.5, -5.55);
         scene.add(portrait);
@@ -345,16 +370,27 @@ export function ImmersivePortfolio() {
         portraitMark.userData.hotspot = true;
         portrait.add(portraitMark);
         activeHotspots.push(portraitMark);
-        const certificate = new THREE.Group();
-        certificate.position.set(6.65, 3.7, -5.48);
-        scene.add(certificate);
-        box(certificate, [1.35, 1.6, 0.14], [0, 0, 0], mat("#ddd0bc"));
-        const certFace = new THREE.Mesh(new THREE.PlaneGeometry(1.12, 1.36), mat("#9f8492", 0.5, 0.08, "#443245", 0.1));
-        certFace.position.z = 0.08;
-        certFace.userData.section = "experience";
-        certFace.userData.hotspot = true;
-        certificate.add(certFace);
-        activeHotspots.push(certFace);
+        const certificateTextureLoader = new THREE.TextureLoader();
+        for (const certificate of certificates) {
+          if (!certificate.frame) continue;
+          const [width, height] = certificate.frame.size;
+          const frame = new THREE.Group();
+          frame.position.set(certificate.frame.position[0], certificate.frame.position[1], -5.55);
+          scene.add(frame);
+          box(frame, [width, height, 0.18], [0, 0, 0], brass);
+          box(frame, [width - 0.14, height - 0.14, 0.06], [0, 0, 0.1], dark);
+          const texture = certificateTextureLoader.load(certificate.preview);
+          texture.colorSpace = THREE.SRGBColorSpace;
+          const face = new THREE.Mesh(
+            new THREE.PlaneGeometry(width - 0.24, height - 0.28),
+            new THREE.MeshBasicMaterial({ map: texture, toneMapped: false }),
+          );
+          face.position.z = 0.14;
+          face.userData.section = "certificates";
+          face.userData.hotspot = true;
+          frame.add(face);
+          activeHotspots.push(face);
+        }
 
         // Hanging warm bulbs, plant and a few floating dust motes add depth to the room.
         for (let i = 0; i < 8; i += 1) {
@@ -619,12 +655,33 @@ export function ImmersivePortfolio() {
             {activeSection === "about" && (
               <div className="terminal-content about-content">
                 <header className="section-intro"><p>03 / THE STUDIO</p><h1 id="section-heading">About</h1><span>Local roots. Connected thinking.</span></header>
-                <div className="about-layout"><div className="founder-card"><div className="founder-avatar"><Image src="/aizul-haziq-profile.png" alt="Muhammad Aizul Haziq" fill sizes="(max-width: 520px) 74px, 118px" /><span aria-hidden="true">↗</span></div><small>FOUNDER / LEAD TECHNOLOGIST</small><strong>Muhammad Aizul Haziq</strong><span>Melaka, Malaysia</span><div className="founder-lines"><i /><i /><i /></div></div><div className="about-copy"><p className="about-lead">Technology should solve a real problem, stay secure and grow with the people who use it.</p><p>KASUZAZ TECHNOLOGY is an independent technology studio turning practical ideas into structured digital systems. We bring web engineering, system administration, networking, design, cybersecurity and AI thinking into one focused delivery process.</p><div className="principle-grid"><span><i>01</i> Integrity</span><span><i>02</i> Security</span><span><i>03</i> Innovation</span><span><i>04</i> Clarity</span></div></div></div>
+                <div className="about-layout"><div className="founder-card"><div className="founder-avatar"><Image src="/aizul-haziq-profile.png" alt="Muhammad Aizul Haziq" fill sizes="(max-width: 520px) 74px, 118px" /><span aria-hidden="true">↗</span></div><small>FOUNDER / LEAD TECHNOLOGIST</small><strong>Muhammad Aizul Haziq</strong><span>Melaka, Malaysia</span><div className="founder-lines"><i /><i /><i /></div></div><div className="about-copy"><p className="about-lead">Technology should solve a real problem, stay secure and grow with the people who use it.</p><p>KASUZAZ TECHNOLOGY is an independent technology studio turning practical ideas into structured digital systems. We bring web engineering, system administration, networking, design, cybersecurity and AI thinking into one focused delivery process.</p><div className="principle-grid"><span><i>01</i> Integrity</span><span><i>02</i> Security</span><span><i>03</i> Innovation</span><span><i>04</i> Clarity</span></div><a className="text-cta certificate-link" href="#certificates" onClick={() => openSection("certificates")}>View all certificates <span>↗</span></a></div></div>
+              </div>
+            )}
+            {activeSection === "certificates" && (
+              <div className="terminal-content certificates-content">
+                <header className="section-intro"><p>04 / LEARNING &amp; RECOGNITION</p><h1 id="section-heading">Certificates</h1><span>Highlights from my learning and work.</span></header>
+                <p className="certificates-note">All {certificates.length} certificates are available here. Select a preview to open the full document.</p>
+                <div className="certificates-grid">
+                  {certificates.map((certificate) => (
+                    <article className={`certificate-card${certificate.featured ? " is-featured" : ""}`} key={certificate.id}>
+                      <a className="certificate-preview" href={certificate.file} target="_blank" rel="noreferrer" aria-label={`Open ${certificate.title}`}>
+                        <Image src={certificate.preview} alt="" fill sizes="(max-width: 520px) 85vw, (max-width: 820px) 42vw, 28vw" />
+                        <span>OPEN ↗</span>
+                      </a>
+                      <div className="certificate-card-info">
+                        <p>{certificate.featured ? "FEATURED CERTIFICATE" : certificate.issuer}</p>
+                        <h2>{certificate.title}</h2>
+                        <a href={certificate.file} target="_blank" rel="noreferrer">View full certificate <span>↗</span></a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
             )}
             {activeSection === "contact" && (
               <div className="terminal-content contact-content">
-                <header className="section-intro"><p>04 / LET&apos;S CONNECT</p><h1 id="section-heading">Contact</h1><span>Have a project in mind? Start a conversation.</span></header>
+                <header className="section-intro"><p>05 / LET&apos;S CONNECT</p><h1 id="section-heading">Contact</h1><span>Have a project in mind? Start a conversation.</span></header>
                 <div className="contact-layout"><div className="contact-phone"><div className="phone-speaker" /><div className="phone-time">{clock}<small>MYT · MELAKA</small></div><Image src="/kasuzaz-technology-logo.png" alt="KASUZAZ Technology" width={70} height={70} /><strong>KASUZAZ<br />TECHNOLOGY</strong><span>Secure. Build. Transform.</span><a className="phone-message" href="https://wa.me/601124819812" target="_blank" rel="noreferrer">Message on WhatsApp <b>↗</b></a></div><div className="contact-details"><p>DIRECT CONTACT</p><a className="contact-link" href="mailto:aizul@kasuzaz.my"><span>EMAIL</span><strong>aizul@kasuzaz.my</strong><i>↗</i></a><a className="contact-link" href="tel:+601124819812"><span>PHONE</span><strong>+60 11-2481 9812</strong><i>↗</i></a><a className="contact-link" href="https://wa.me/601124819812" target="_blank" rel="noreferrer"><span>WHATSAPP</span><strong>Start a project chat</strong><i>↗</i></a><div className="contact-location"><i /> MELAKA, MALAYSIA · REMOTE WORLDWIDE</div><div className="social-links"><a href="https://github.com/KASUZAZ" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://www.instagram.com/kasuzaz_" target="_blank" rel="noreferrer">INSTAGRAM ↗</a><a href="https://www.tiktok.com/@kasuzaztech" target="_blank" rel="noreferrer">TIKTOK ↗</a></div></div></div>
               </div>
             )}
