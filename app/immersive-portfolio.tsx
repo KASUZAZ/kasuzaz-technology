@@ -17,9 +17,9 @@ const sections: { id: SectionId; label: string }[] = [
 ];
 
 const certificates: CertificateItem[] = [
-  { id: "introduction-to-cybersecurity", title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", file: "/certificates/files/introduction-to-cybersecurity.pdf", preview: "/certificates/previews/introduction-to-cybersecurity.jpg", featured: true, frame: { position: [5.5, 4.75], size: [1.54, 1.18] } },
-  { id: "cybersafe-untuk-rakyat", title: "CyberSAFE untuk Rakyat", issuer: "Ministry of Digital", file: "/certificates/files/cybersafe-untuk-rakyat.pdf", preview: "/certificates/previews/cybersafe-untuk-rakyat.jpg", featured: true, frame: { position: [7.22, 4.75], size: [1.54, 1.18] } },
-  { id: "anugerah-perak-melaka-2026", title: "Anugerah Perak", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/anugerah-perak-melaka-2026.jpg", preview: "/certificates/previews/anugerah-perak-melaka-2026.jpg", featured: true, frame: { position: [6.36, 2.95], size: [1.14, 1.66] } },
+  { id: "introduction-to-cybersecurity", title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", file: "/certificates/files/introduction-to-cybersecurity.pdf", preview: "/certificates/previews/introduction-to-cybersecurity.jpg", featured: true, frame: { position: [5.15, 4.75], size: [1.54, 1.18] } },
+  { id: "cybersafe-untuk-rakyat", title: "CyberSAFE untuk Rakyat", issuer: "Ministry of Digital", file: "/certificates/files/cybersafe-untuk-rakyat.pdf", preview: "/certificates/previews/cybersafe-untuk-rakyat.jpg", featured: true, frame: { position: [6.87, 4.75], size: [1.54, 1.18] } },
+  { id: "anugerah-perak-melaka-2026", title: "Anugerah Perak", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/anugerah-perak-melaka-2026.png", preview: "/certificates/previews/anugerah-perak-melaka-2026.png", featured: true, frame: { position: [6.01, 2.95], size: [1.14, 1.66] } },
   { id: "ai-fluency", title: "AI Fluency", issuer: "Course certificate", file: "/certificates/files/ai-fluency.pdf", preview: "/certificates/previews/ai-fluency.jpg" },
   { id: "ai-safety", title: "AI Safety", issuer: "Course certificate", file: "/certificates/files/ai-safety.pdf", preview: "/certificates/previews/ai-safety.jpg" },
   { id: "blockchain", title: "Blockchain", issuer: "Course certificate", file: "/certificates/files/blockchain.pdf", preview: "/certificates/previews/blockchain.jpg" },
@@ -29,13 +29,14 @@ const certificates: CertificateItem[] = [
   { id: "creating-compelling-reports", title: "Creating Compelling Reports", issuer: "Course certificate", file: "/certificates/files/creating-compelling-reports.pdf", preview: "/certificates/previews/creating-compelling-reports.jpg" },
   { id: "generative-ai", title: "Generative AI", issuer: "Course certificate", file: "/certificates/files/generative-ai.pdf", preview: "/certificates/previews/generative-ai.jpg" },
   { id: "cisco-packet-tracer", title: "Getting Started with Cisco Packet Tracer", issuer: "Course certificate", file: "/certificates/files/cisco-packet-tracer.pdf", preview: "/certificates/previews/cisco-packet-tracer.jpg" },
-  { id: "penghargaan-karnival-tvet-2026", title: "Sijil Penghargaan", issuer: "Karnival TVET Negeri Melaka 2026", file: "/certificates/files/penghargaan-karnival-tvet-2026.jpg", preview: "/certificates/previews/penghargaan-karnival-tvet-2026.jpg" },
+  { id: "introduction-to-html", title: "Introduction to HTML", issuer: "SoloLearn", file: "/certificates/files/introduction-to-html.jpg", preview: "/certificates/previews/introduction-to-html.jpg" },
   { id: "introduction-to-iot", title: "Introduction to IoT", issuer: "Course certificate", file: "/certificates/files/introduction-to-iot.pdf", preview: "/certificates/previews/introduction-to-iot.jpg" },
   { id: "introduction-to-modern-ai", title: "Introduction to Modern AI", issuer: "Course certificate", file: "/certificates/files/introduction-to-modern-ai.pdf", preview: "/certificates/previews/introduction-to-modern-ai.jpg" },
   { id: "kasuzaz-cyber-security", title: "Cyber Security", issuer: "KASUZAZ", file: "/certificates/files/kasuzaz-cyber-security.pdf", preview: "/certificates/previews/kasuzaz-cyber-security.jpg" },
   { id: "operating-systems-basics", title: "Operating Systems Basics", issuer: "Course certificate", file: "/certificates/files/operating-systems-basics.pdf", preview: "/certificates/previews/operating-systems-basics.jpg" },
   { id: "sijil-hikm26", title: "Sijil Penghargaan HIKM26", issuer: "Karnival TVET Negeri Melaka 2026", file: "/certificates/files/sijil-hikm26.pdf", preview: "/certificates/previews/sijil-hikm26.jpg" },
   { id: "sijil-kehadiran-inovasi-2026", title: "Sijil Kehadiran", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/sijil-kehadiran-inovasi-2026.png", preview: "/certificates/previews/sijil-kehadiran-inovasi-2026.png" },
+  { id: "introduction-to-python", title: "Introduction to Python", issuer: "SoloLearn", file: "/certificates/files/introduction-to-python.jpg", preview: "/certificates/previews/introduction-to-python.jpg" },
 ];
 
 const projects = [
@@ -428,7 +429,7 @@ export function ImmersivePortfolio() {
           { id: "projects", pos: [-2.7, 3.05, -0.65] },
           { id: "experience", pos: [5.6, 4.55, -4.95] },
           { id: "about", pos: [-6.0, 3.25, -4.9] },
-          { id: "certificates", pos: [8.25, 3.0, -4.8] },
+          { id: "certificates", pos: [7.7, 3.0, -4.8] },
           { id: "contact", pos: [3.7, 3.05, -0.2] },
         ];
         const openByMarker = (id: SectionId) => {
@@ -449,7 +450,7 @@ export function ImmersivePortfolio() {
           const texture = makeLabelTexture(THREE, marker.id[0].toUpperCase() + marker.id.slice(1), "open section");
           if (texture) {
             const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }));
-            sprite.scale.set(1.9, 0.6, 1);
+            sprite.scale.set(marker.id === "certificates" ? 1.55 : 1.9, marker.id === "certificates" ? 0.49 : 0.6, 1);
             sprite.position.y = 0.47;
             sprite.userData.section = marker.id;
             sprite.userData.hotspot = true;
