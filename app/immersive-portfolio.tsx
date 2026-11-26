@@ -44,31 +44,66 @@ const projects = [
     id: "micostskills",
     name: "MiCoSTSkills",
     type: "TVET information portal",
-    status: "In development",
+    status: "Live website",
     category: "platforms" as const,
     description: "A structured portal bringing programmes, admissions and digital services together for the MiCoST community.",
     mark: "MS",
     tone: "mint",
+    image: "/projects/micostskills.png",
+    imageFit: "cover" as const,
+    url: "https://micostskills.kasuzaz.my/",
   },
   {
     id: "cyberguard",
     name: "CyberGuard AI",
     type: "Cybersecurity awareness",
-    status: "Innovation concept",
+    status: "Live website",
     category: "security" as const,
     description: "An AI-supported learning concept for security awareness, guided practice and safer digital habits.",
     mark: "CG",
     tone: "rose",
+    image: "/projects/cyberguard-ai.png",
+    imageFit: "contain" as const,
+    url: "https://cyberguard-ai.kasuzaz.my/",
   },
   {
-    id: "ssh-center",
-    name: "SSH Control Center",
-    type: "Infrastructure tooling",
-    status: "Technical prototype",
-    category: "systems" as const,
-    description: "A focused administration concept for organising authorised remote infrastructure operations.",
-    mark: "SSH",
+    id: "fox-clan",
+    name: "Fox Clan",
+    type: "Community website",
+    status: "Live website",
+    category: "platforms" as const,
+    description: "A public website for the Fox Clan community, featuring its identity and online presence.",
+    mark: "FOX",
+    tone: "rose",
+    image: "/projects/fox-clan.png",
+    imageFit: "cover" as const,
+    url: "https://fox-clan.kasuzaz.my/",
+  },
+  {
+    id: "merlimau-kita",
+    name: "Merlimau Kita",
+    type: "Local community platform",
+    status: "Live website",
+    category: "platforms" as const,
+    description: "A community focused website connecting people with Merlimau and local information.",
+    mark: "MK",
+    tone: "mint",
+    image: "/projects/merlimau-kita.png",
+    imageFit: "contain" as const,
+    url: "https://merlimau-kita.kasuzaz.my/",
+  },
+  {
+    id: "exposure-hacker",
+    name: "Exposure Hacker",
+    type: "Cybersecurity education",
+    status: "Live website",
+    category: "security" as const,
+    description: "A cybersecurity awareness site highlighting digital threats and safer online habits.",
+    mark: "EH",
     tone: "blue",
+    image: "/projects/exposure-hacker.png",
+    imageFit: "cover" as const,
+    url: "https://exposure-hacker.kasuzaz.my/",
   },
 ];
 
@@ -638,8 +673,8 @@ export function ImmersivePortfolio() {
                     </button>)}
                   </div>
                   <article className="project-detail" key={selectedProject.id}>
-                    <div className={`project-art art-${selectedProject.tone}`}><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><span>{selectedProject.mark}</span><small>KASUZAZ / PROJECT 0{projects.indexOf(selectedProject) + 1}</small></div>
-                    <p className="project-type">{selectedProject.type}</p><h2>{selectedProject.name}</h2><p className="project-description">{selectedProject.description}</p><span className="project-status"><i /> {selectedProject.status}</span><a className="text-cta" href="#contact" onClick={() => openSection("contact")}>Discuss a similar project <span>↗</span></a>
+                    <div className={`project-art art-${selectedProject.tone}`}><Image className={`project-art-image image-${selectedProject.imageFit}`} src={selectedProject.image} alt={`${selectedProject.name} website preview`} fill sizes="(max-width: 700px) 90vw, 55vw" /><div className="project-art-shade" /><small>KASUZAZ / PROJECT 0{projects.indexOf(selectedProject) + 1}</small></div>
+                    <p className="project-type">{selectedProject.type}</p><h2>{selectedProject.name}</h2><p className="project-description">{selectedProject.description}</p><span className="project-status"><i /> {selectedProject.status}</span><a className="text-cta" href={selectedProject.url} target="_blank" rel="noreferrer">Visit website <span>↗</span></a><a className="text-cta project-discuss-link" href="#contact" onClick={() => openSection("contact")}>Discuss a similar project <span>↗</span></a>
                   </article>
                 </div>
               </div>
