@@ -17,9 +17,9 @@ const sections: { id: SectionId; label: string }[] = [
 ];
 
 const certificates: CertificateItem[] = [
-  { id: "introduction-to-cybersecurity", title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", file: "/certificates/files/introduction-to-cybersecurity.pdf", preview: "/certificates/previews/introduction-to-cybersecurity.jpg", featured: true, frame: { position: [5.15, 4.45], size: [1.54, 1.18] } },
-  { id: "cybersafe-untuk-rakyat", title: "CyberSAFE untuk Rakyat", issuer: "Ministry of Digital", file: "/certificates/files/cybersafe-untuk-rakyat.pdf", preview: "/certificates/previews/cybersafe-untuk-rakyat.jpg", featured: true, frame: { position: [6.84, 4.45], size: [1.54, 1.18] } },
-  { id: "anugerah-perak-melaka-2026", title: "Anugerah Perak", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/anugerah-perak-melaka-2026.jpg", preview: "/certificates/previews/anugerah-perak-melaka-2026.jpg", featured: true, frame: { position: [8.35, 4.45], size: [1.14, 1.66] } },
+  { id: "introduction-to-cybersecurity", title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", file: "/certificates/files/introduction-to-cybersecurity.pdf", preview: "/certificates/previews/introduction-to-cybersecurity.jpg", featured: true, frame: { position: [5.5, 4.75], size: [1.54, 1.18] } },
+  { id: "cybersafe-untuk-rakyat", title: "CyberSAFE untuk Rakyat", issuer: "Ministry of Digital", file: "/certificates/files/cybersafe-untuk-rakyat.pdf", preview: "/certificates/previews/cybersafe-untuk-rakyat.jpg", featured: true, frame: { position: [7.22, 4.75], size: [1.54, 1.18] } },
+  { id: "anugerah-perak-melaka-2026", title: "Anugerah Perak", issuer: "Hari Inovasi Kebangsaan @Melaka 2026", file: "/certificates/files/anugerah-perak-melaka-2026.jpg", preview: "/certificates/previews/anugerah-perak-melaka-2026.jpg", featured: true, frame: { position: [6.36, 2.95], size: [1.14, 1.66] } },
   { id: "ai-fluency", title: "AI Fluency", issuer: "Course certificate", file: "/certificates/files/ai-fluency.pdf", preview: "/certificates/previews/ai-fluency.jpg" },
   { id: "ai-safety", title: "AI Safety", issuer: "Course certificate", file: "/certificates/files/ai-safety.pdf", preview: "/certificates/previews/ai-safety.jpg" },
   { id: "blockchain", title: "Blockchain", issuer: "Course certificate", file: "/certificates/files/blockchain.pdf", preview: "/certificates/previews/blockchain.jpg" },
@@ -428,6 +428,7 @@ export function ImmersivePortfolio() {
           { id: "projects", pos: [-2.7, 3.05, -0.65] },
           { id: "experience", pos: [5.6, 4.55, -4.95] },
           { id: "about", pos: [-6.0, 3.25, -4.9] },
+          { id: "certificates", pos: [8.25, 3.0, -4.8] },
           { id: "contact", pos: [3.7, 3.05, -0.2] },
         ];
         const openByMarker = (id: SectionId) => {
