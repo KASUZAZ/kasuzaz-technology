@@ -334,8 +334,13 @@ export function ImmersivePortfolio() {
         scene.add(portrait);
         box(portrait, [1.55, 2.1, 0.18], [0, 0, 0], brass);
         box(portrait, [1.35, 1.88, 0.06], [0, 0, 0.1], dark);
-        const portraitMark = new THREE.Mesh(new THREE.PlaneGeometry(1.15, 1.2), new THREE.MeshBasicMaterial({ color: "#71657a" }));
-        portraitMark.position.set(0, 0.24, 0.14);
+        const portraitTexture = new THREE.TextureLoader().load("/aizul-haziq-profile.png");
+        portraitTexture.colorSpace = THREE.SRGBColorSpace;
+        const portraitMark = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.22, 1.42),
+          new THREE.MeshBasicMaterial({ map: portraitTexture, toneMapped: false }),
+        );
+        portraitMark.position.set(0, 0.14, 0.14);
         portraitMark.userData.section = "about";
         portraitMark.userData.hotspot = true;
         portrait.add(portraitMark);
